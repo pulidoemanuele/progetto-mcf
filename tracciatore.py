@@ -75,11 +75,13 @@ for j in range(N):
 print('====================================================================== ')
 #calcolo angolo medio di uscita e relativo errore
 dev, err = f.angolo(dev_x, err_x, dev_y, err_y)
-dev1 = 'Angolo medio di deviazione, in radianti: {:.1e}'.format(dev)
+dev1 = 'Angolo medio di deviazione, in radianti: {:.2e}'.format(dev)
 print(dev1)
-err1 = "Deviazione standard dell'angolo di deviazione, in radianti {:.1e}".format(err)
+err1 = "Deviazione standard dell'angolo di deviazione, in radianti {:.2e}".format(err)
 print(err1)
-
+print('====================================================================== ')
+print(' ')
+print(' ')
 
 
 #sezione grafici
