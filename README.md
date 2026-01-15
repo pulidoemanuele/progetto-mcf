@@ -1,1 +1,3 @@
-# progetto-mcf
+Il codice per la simulazione di un tracciatore configurabile al silicio, per muoni, è stato strutturato in due script .py: funzioni.py contiene tutte le funzioni progettate ed utilizzate per la simulazione;
+tracciatore.py è il codice effettivo da eseguire, in cui viene importato il primo script come modulo. In questo modo il codice "principale" risulta semplice e permette di essere modificato più agevolmente.
+Per ogni funzione utilizzata è stata approntata una Docstring per eventuali chiarimenti.  
