@@ -19,7 +19,7 @@ d1 = input('Digitare la distanza fra gli strati desiderata, in cm: ')  #distanza
 d = float(d1)
 s1 = input('Digitare la larghezza desiderata del pitch (elementi discreti di misura), in um: ') #dimensione dei pitch 0.005-0.04 cm
 s = float(s1) /10000
-N = 5000 #elementi del fascio
+N = 10000 #elementi del fascio
 
 #condizioni iniziali
 dev_x = np.empty(0)
