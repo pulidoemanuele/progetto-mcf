@@ -33,7 +33,7 @@ def cscatter(ox1, oy1, E ) :
     dy = z[2]*h1*O / (np.sqrt(12)) + z[3]*h1*O / 2
     Oy = z[3] * O
 
-    return Ox, dx, Oy, dy
+    return Ox+ox1, dx, Oy+oy1, dy
 
 
 def spostamento(ox, dx, oy, dy, d) :
