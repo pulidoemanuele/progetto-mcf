@@ -9,7 +9,6 @@ warnings.filterwarnings('ignore')
 
 #condizioni iniziali
 
-
 n1 = input('Digitare il numero di strati al silicio desiderati: ') # numero di piani
 n = int(n1)
 E1 = input("Digitare l'energia desiderata del fascio di muoni, nell intervallo 10-10000 MeV: ") # energia del fascio 10-10000 MeV
