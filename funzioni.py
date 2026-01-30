@@ -28,12 +28,16 @@ def cscatter(ox1, oy1, E ) :
     h1= h * np.sqrt((ax)**2 + (ay)**2 + 1 )
     O = 13.6 / (b * pc ) * np.sqrt( h1 / 9.36 ) * (1 + 0.038*np.log(h1/(9.36 * (b**2))))
     z = np.random.normal(0, 1, 4)
-    dx = z[0]*h1*O / (np.sqrt(12)) + z[1]*h1*O / 2
+    dx = z[0]*h1*O / (np.sqrt(12)) + z[1]*O*h1 / 2
     Ox = z[1] * O
-    dy = z[2]*h1*O / (np.sqrt(12)) + z[3]*h1*O / 2
+    dx1 = ( (dx/np.sin(Ox)) + ( dx * np.tan(Ox) )) * np.sin(ox1 + Ox)
+    
+    dy = z[2]*h1*O / (np.sqrt(12)) + z[3]*O*h1 / 2
     Oy = z[3] * O
+    dy1 = ( (dy/np.sin(Oy)) + ( dy * np.tan(Oy) )) * np.sin(oy1 + Oy)
+    
 
-    return Ox+ox1, dx, Oy+oy1, dy
+    return Ox, dx1, Oy, dy1
 
 
 def spostamento(ox, dx, oy, dy, d) :
