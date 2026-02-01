@@ -55,11 +55,12 @@ for j in range(N):
         y2 = f.mstrip(y1, s)
         r = np.array([x2, y2, z1])
         traiettoria = np.vstack([traiettoria, r ])
+        
         z0 = z1
         x0 = x1
         y0 = y1
-        ox0 += ox
-        oy0 += oy
+        ox0 = ox
+        oy0 = oy
 
     a, b, e = f.regrx(traiettoria, serr)
     c, l, g = f.regry(traiettoria, serr)
