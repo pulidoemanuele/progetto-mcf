@@ -159,13 +159,13 @@ def grafico(matrice, m, d):
                        edgecolor='gray', linewidth=0.1)
     
     # Punti e linee
-    ax.plot(x_points, y_points, z_points, 'b-', alpha=0.6)
+    ax.plot(x_points, y_points, z_points, 'b-', alpha=0.6, label='traiettoria ricostruita')
     ax.scatter(x_points, y_points, z_points, c='red', s=30)
     
     # Fit lineare
     retta1 = retta(matrice, m, d)
     ax.plot(retta1[:,0], retta1[:,1], retta1[:,2], 
-                'r-', linewidth=2)
+                'r-', linewidth=2, label='fit lineare della traiettoria')
     
     # Imposta limiti assi
     ax.set_xlim(x_lim)
@@ -179,8 +179,8 @@ def grafico(matrice, m, d):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     ax.set_title(f'traiettoria ricostruita + fit 3d')
-
-    plt.legend()
+    ax.legend(loc='upper left', fontsize=12)
+    
     plt.tight_layout()
     plt.show()
 
@@ -241,21 +241,23 @@ def fitxy(matrice, s, titolo1="fit lineare per x", titolo2="fit lineare per y"):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
     
     # Primo grafico
-    ax1.plot(matrice[:,2], a, 'b-', linewidth=2, markersize=4)
-    ax1.scatter( matrice[:,2], matrice[:,0], color='royalblue')
+    ax1.plot(matrice[:,2], a, color ='green', linewidth=2, markersize=4, label='fit lineare della traiettoria')
+    ax1.scatter( matrice[:,2], matrice[:,0], color='royalblue', label='traiettoria ricostruita')
     ax1.set_xlabel('Z')
     ax1.set_ylabel('X')
     ax1.set_title('fit x')
     ax1.grid(True, alpha=0.3)
+    ax1.legend()
     
     # Secondo grafico
-    ax2.plot(matrice[:,2], c, 'r-', linewidth=2, markersize=4)
-    ax2.scatter( matrice[:,2], matrice[:,1], color='royalblue')
+    ax2.plot(matrice[:,2], c, 'r-', linewidth=2, markersize=4, label='fit lineare della traiettoria')
+    ax2.scatter( matrice[:,2], matrice[:,1], color='royalblue', label='traiettoria ricostruita')
     ax2.set_xlabel('Z')
     ax2.set_ylabel('Y')
     ax2.set_title('fit y')
     ax2.grid(True, alpha=0.3)
-    
+    ax2.legend()
+
     plt.tight_layout()
     plt.show()
 
@@ -279,7 +281,7 @@ def pesata(x, xerr):
 def angolo(x, xerr, y, yerr):
     """
     Restituisce l'angolo rispetto all'asse z, con errore associato, con cui la particella esce dal tracciatore.
-    ------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------------
     Parametri:
     x, y = array di float, deviazioni nei rispettivi piani della particella;
     xerr, yerr = array di float, errori associati ad ogni deviazione.
@@ -296,6 +298,12 @@ def angolo(x, xerr, y, yerr):
 
 
 def filtro_ist(x,y):
+    """
+    Restituisce i due array di partenza, di dati gaussiani, filtrati dagli elementi meno probabile.
+    -----------------------------------------------------------------------------------------------
+    Parametri:
+    x, y = array di float che seguono una distribuzione gaussiana.
+    """
     xlim_inf = np.percentile(x, 0.05)
     xlim_sup = np.percentile(x, 99.9)
     ylim_inf = np.percentile(y, 0.05)
