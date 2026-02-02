@@ -86,7 +86,7 @@ print(' ')
 #sezione grafici
 f.grafico(traiett, n, d )
 f.fitxy(traiett, s)
-b1, b2 = f.infobins(dev_x, N)
+b1, b2 = f.infobins(dev_x,dev_y, N)
 f.istxy2(dev_x, dev_y, b1)
 f.heatmap(dev_x, dev_y, b1)
 f.ist3d(dev_x, dev_y, 2 * b1 , b2)
