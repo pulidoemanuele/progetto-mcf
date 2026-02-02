@@ -179,7 +179,8 @@ def grafico(matrice, m, d):
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
     ax.set_title(f'traiettoria ricostruita + fit 3d')
-    
+
+    plt.legend()
     plt.tight_layout()
     plt.show()
 
@@ -294,14 +295,19 @@ def angolo(x, xerr, y, yerr):
 
 
 
-def filtro_ist(dati):
-    lim_inf = np.percentile(dati, 0.05)
-    lim_sup = np.percentile(dati, 99.9)
-    dati_filt = dati[(dati >= lim_inf) & (dati <= lim_sup)]
-    return dati_filt
+def filtro_ist(x,y):
+    xlim_inf = np.percentile(x, 0.05)
+    xlim_sup = np.percentile(x, 99.9)
+    ylim_inf = np.percentile(y, 0.05)
+    ylim_sup = np.percentile(y, 99.9)
+    filtro = (x >= xlim_inf) & (x <= xlim_sup) & (y >= ylim_inf) & (y <= ylim_sup)
+    
+    x_filt = x[filtro]
+    y_filt = y[filtro]
+    return x_filt, y_filt
 
 
-def infobins(dati1, n):
+def infobins(x, y, n):
     """
     Restituisce numero e larghezza ottimale dei bins di un istogramma, a seconda dei dati che si vogliono utilizzare, usando le regole di Sturges e Scott.
     ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -310,8 +316,8 @@ def infobins(dati1, n):
     n = int, dimensione dell'array di dati.
     
     """
-    dati = filtro_ist(dati1)
-    sigma = np.std(dati, ddof=1)
+    x1, y1 = filtro_ist(x,y)
+    sigma = np.std(x1, ddof=1)
     a = 3.49 * sigma * (n ** (-1/3))
     b = int(np.ceil(1 + np.log2(n)))
     return b, a
@@ -327,8 +333,7 @@ def heatmap(x1, y1, b1, cmap='viridis', title=None):
     cmap = string, gradiente di colori da utilizzare, opzionale;
     title = string, titolo del grafico, opzionale.
     """
-    x = filtro_ist(x1)
-    y = filtro_ist(y1)
+    x, y = filtro_ist(x1, y1)
     
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))       
     
@@ -392,8 +397,7 @@ def ist3d(x1, y1, b1, b2):
     b1 = numero di bins;
     b2 = larghezza dei bins.
     """
-    x = filtro_ist(x1)
-    y = filtro_ist(y1)
+    x, y = filtro_ist(x1, y1)
     
     
     # Crea figura 3D
@@ -448,8 +452,7 @@ def istxy2(x1, y1, n):
     x, y = array di float, dati con cui realizzare il corrispettivo istogramma;
     n = int, dimensione degli array di dati.
     """
-    x = filtro_ist(x1)
-    y = filtro_ist(y1)
+    x, y = filtro_ist(x1, y1)
     
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     
