@@ -26,7 +26,7 @@ def cscatter(ox1, oy1, E ) :
     ay = np.tan(oy1)
 
     h1= h * np.sqrt((ax)**2 + (ay)**2 + 1 )
-    O = 13.6 / (b * pc ) * np.sqrt( h1 / 9.36 ) * (1 + 0.038*np.log(h1/(9.36 * (b**2))))
+    O = -13.6 / (b * pc ) * np.sqrt( h1 / 9.36 ) * (1 + 0.038*np.log(h1/(9.36 * (b**2))))
     
     z = np.random.normal(0, 1, 4)
 
@@ -292,7 +292,16 @@ def angolo(x, xerr, y, yerr):
 
 
 
-def infobins(dati, n):
+
+
+def filtro_ist(dati):
+    lim_inf = np.percentile(dati, 0.05)
+    lim_sup = np.percentile(dati, 99.9)
+    dati_filt = dati[(dati >= lim_inf) & (dati <= lim_sup)]
+    return dati_filt
+
+
+def infobins(dati1, n):
     """
     Restituisce numero e larghezza ottimale dei bins di un istogramma, a seconda dei dati che si vogliono utilizzare, usando le regole di Sturges e Scott.
     ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -301,15 +310,14 @@ def infobins(dati, n):
     n = int, dimensione dell'array di dati.
     
     """
+    dati = filtro_ist(dati1)
     sigma = np.std(dati, ddof=1)
     a = 3.49 * sigma * (n ** (-1/3))
     b = int(np.ceil(1 + np.log2(n)))
     return b, a
 
 
-
-
-def heatmap(x, y, b1, cmap='viridis', title=None):
+def heatmap(x1, y1, b1, cmap='viridis', title=None):
     """
     Produce una heatmap, paragonabile a un istogramma di due variabili, con scatterplot per visualizzare la distribuzione dei valori.
     ---------------------------------------------------------------------------------------------------------------------------------
@@ -319,6 +327,8 @@ def heatmap(x, y, b1, cmap='viridis', title=None):
     cmap = string, gradiente di colori da utilizzare, opzionale;
     title = string, titolo del grafico, opzionale.
     """
+    x = filtro_ist(x1)
+    y = filtro_ist(y1)
     
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))       
     
@@ -373,7 +383,7 @@ def heatmap(x, y, b1, cmap='viridis', title=None):
 
     
 
-def ist3d(x, y, b1, b2):
+def ist3d(x1, y1, b1, b2):
     """
     Produce un istogramma tridimensionale per coppie di valori.
     -----------------------------------------------------------
@@ -382,6 +392,9 @@ def ist3d(x, y, b1, b2):
     b1 = numero di bins;
     b2 = larghezza dei bins.
     """
+    x = filtro_ist(x1)
+    y = filtro_ist(y1)
+    
     
     # Crea figura 3D
     fig = plt.figure(figsize=(10, 8))
@@ -427,7 +440,7 @@ def ist3d(x, y, b1, b2):
 
 
 
-def istxy2(x, y, n):
+def istxy2(x1, y1, n):
     """
     Produce due istogrammi affiancati.
     ----------------------------------
@@ -435,6 +448,9 @@ def istxy2(x, y, n):
     x, y = array di float, dati con cui realizzare il corrispettivo istogramma;
     n = int, dimensione degli array di dati.
     """
+    x = filtro_ist(x1)
+    y = filtro_ist(y1)
+    
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     
     axes[0].hist(x, bins=n, 
