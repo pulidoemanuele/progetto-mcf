@@ -331,7 +331,7 @@ def infobins(x, y, n):
     return b, a
 
 
-def heatmap(x1, y1, b1, cmap='viridis', title=None):
+def heatmap(x1, y1, b1):
     """
     Produce una heatmap, paragonabile a un istogramma di due variabili, con scatterplot per visualizzare la distribuzione dei valori.
     ---------------------------------------------------------------------------------------------------------------------------------
@@ -364,30 +364,18 @@ def heatmap(x1, y1, b1, cmap='viridis', title=None):
         bins_y_count = 0
     
     # Heatmap
-    im = ax1.imshow(hist.T, origin='lower',  extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], cmap=cmap, aspect='auto')
+    im = ax1.imshow(hist.T, origin='lower',  extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], cmap='viridis', aspect='auto')
     
     cbar = plt.colorbar(im, ax=ax1, label='Frequenza')
     ax1.set_xlabel('X')
     ax1.set_ylabel('Y')
-    
-    # Titolo
-    if title is None:
-        title = f'Heatmap 2D'
-    ax1.set_title(title)
-    
-    # Informazioni sui bins nel grafico
-    bins_info_text = (f'Bins: {bins_x_count}×{bins_y_count}\n'
-                     f'Width: ({actual_bin_width_x:.3f}, {actual_bin_width_y:.3f})')
-    
-    ax1.text(0.02, 0.98, bins_info_text, transform=ax1.transAxes,
-            fontsize=10, verticalalignment='top',
-            bbox=dict(boxstyle='round', facecolor='white', alpha=0.9))
+    ax1.set_title('Heatmap degli angoli di deviazione')
     
     # Scatter plot
     ax2.scatter(x, y, alpha=0.3, s=10, c='blue', edgecolors='none')
     ax2.set_xlabel('angolo x')
     ax2.set_ylabel('angolo y')
-    ax2.set_title('distribuzione delle deviazioni')
+    ax2.set_title('scatterplot delle deviazioni')
     ax2.grid(True, alpha=0.3)
     
     
