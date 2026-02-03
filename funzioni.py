@@ -347,21 +347,7 @@ def heatmap(x1, y1, b1):
     
     # Calcola istogramma
     hist, xedges, yedges = np.histogram2d(x, y, bins= b1  )
-    
-    # Calcola informazioni sui bins
-    if len(xedges) > 1:
-        actual_bin_width_x = xedges[1] - xedges[0]
-        bins_x_count = len(xedges) - 1
-    else:
-        actual_bin_width_x = 0
-        bins_x_count = 0
-        
-    if len(yedges) > 1:
-        actual_bin_width_y = yedges[1] - yedges[0]
-        bins_y_count = len(yedges) - 1
-    else:
-        actual_bin_width_y = 0
-        bins_y_count = 0
+   
     
     # Heatmap
     im = ax1.imshow(hist.T, origin='lower',  extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]], cmap='viridis', aspect='auto')
@@ -450,15 +436,15 @@ def istxy2(x1, y1, n):
     """
     x, y = filtro_ist(x1, y1)
     
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
     
-    axes[0].hist(x, bins=n, 
+    ax[0].hist(x, bins=n, 
                  color='skyblue', alpha=0.7, edgecolor='black')
-    axes[0].set_title('Distribuzione Ox')
+    ax[0].set_title('Distribuzione Ox')
     
-    axes[1].hist(y, bins=n, 
+    ax[1].hist(y, bins=n, 
                  color='salmon', alpha=0.7, edgecolor='black')
-    axes[1].set_title('Distribuzione Oy')
+    ax[1].set_title('Distribuzione Oy')
     
     plt.tight_layout()
     plt.show()
