@@ -50,7 +50,6 @@ for j in range(N):
         z1 = z0 + z
         x1 = x0 + x
         y1 = y0 + y
-        r1 = np.array([ x1, y1, z1 ])
         x2 = f.mstrip(x1, s)
         y2 = f.mstrip(y1, s)
         r = np.array([x2, y2, z1])
