@@ -227,7 +227,7 @@ def regry(matrice, s):
 
 
 
-def fitxy(matrice, s, titolo1="fit lineare per x", titolo2="fit lineare per y"):
+def fitxy(matrice, s):
     """
     Genera due grafici affiancati che mostrano la traiettoria registrata nel piani zx e zy con rispettivi fit.
     ----------------------------------------------------------------------------------------------------------
