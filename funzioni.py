@@ -299,7 +299,7 @@ def angolo(x, xerr, y, yerr):
 
 def filtro_ist(x,y):
     """
-    Restituisce i due array di partenza, di dati gaussiani, filtrati dagli elementi meno probabile.
+    Restituisce i due array di partenza, di dati gaussiani, filtrati dagli elementi meno probabili.
     -----------------------------------------------------------------------------------------------
     Parametri:
     x, y = array di float che seguono una distribuzione gaussiana.
@@ -320,7 +320,7 @@ def infobins(x, y, n):
     Restituisce numero e larghezza ottimale dei bins di un istogramma, a seconda dei dati che si vogliono utilizzare, usando le regole di Sturges e Scott.
     ------------------------------------------------------------------------------------------------------------------------------------------------------
     Parametri:
-    dati = array di float, insieme di dati con cui si vuole realizzare l'istogramma;
+    x, y = array di float, insieme di dati con cui si vuole realizzare l'istogramma;
     n = int, dimensione dell'array di dati.
     
     """
